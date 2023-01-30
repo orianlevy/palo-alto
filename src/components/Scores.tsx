@@ -5,16 +5,17 @@ import 'ag-grid-community/styles//ag-grid.css';
 import 'ag-grid-community/styles//ag-theme-alpine.css';
 import useScores from "./useScores";
 import IdCellRenderer from "./IdCellRenderer";
+import ColumnFilter from "./ColumnFilter";
 
 const Scores = ({propsRows = 10}) => {
     const title = "Tournament 101 - Final Results";
     const gridStyle = useMemo(() => ({ height: '470px', width: '90%' }), []);
-    const { numberOfRows, totalNumberOfRows, isLoading, rowData, page, setPage, error, handleSearch, handleLevelFilter } = useScores(propsRows);
+    const { numberOfRowsInPage, totalNumberOfRows, isLoading, rowData, page, setPage, error, handleSearch, handleLevelFilter } = useScores(propsRows);
     const [columnDefs] = useState([
-        { field: 'id', cellRenderer: (props: any) => <IdCellRenderer id={props.data.id} /> },
-        { field: 'name', cellStyle: { textTransform: 'capitalize' } },
-        { field: 'level' },
-        { field: 'score' }
+        { field: 'id', cellRenderer: (props: any) => <IdCellRenderer id={props.data.id} />, suppressMovable:true},
+        { field: 'name', cellStyle: { textTransform: 'capitalize' }, suppressMovable:true },
+        { field: 'level', headerComponent: ColumnFilter, headerComponentParams: {onLevelSelected: handleLevelFilter}, suppressMovable:true},
+        { field: 'score', suppressMovable:true }
     ]);
 
     const onGridSizeChanged = (params: any) => {
@@ -34,13 +35,6 @@ const Scores = ({propsRows = 10}) => {
             <span className="scores-title">{title}</span>
             <div className='ag-theme-alpine' style={gridStyle}>
                 <input type="text" className="search" placeholder="Search..." onChange={handleSearch}/>
-                <span>Level: </span>
-                <select onChange={handleLevelFilter}>
-                    <option value=""></option>
-                    <option value="rookie">Rookie</option>
-                    <option value="amateur">Amateur</option>
-                    <option value="pro">Pro</option>
-                </select>
                 <AgGridReact
                     onGridSizeChanged={onGridSizeChanged}
                     rowData={rowData}
@@ -55,7 +49,7 @@ const Scores = ({propsRows = 10}) => {
                     </button>
                     <button className="pagination-button"
                         onClick={() => setPage((currPage) => currPage + 1)}
-                        disabled={page  === (totalNumberOfRows === 0 ? 1 : Math.floor(totalNumberOfRows / numberOfRows))}
+                        disabled={page  === (totalNumberOfRows === 0 ? 1 : Math.floor(totalNumberOfRows / numberOfRowsInPage))}
                     >
                         Next
                     </button>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useQuery} from "react-query";
 
-const useScores = (numberOfRows: number) => {
+const useScores = (numberOfRowsInPage: number) => {
     const [page, setPage] = useState(1);
     const [totalNumberOfRows, setTotalNumberOfRows] = useState(0);
     const [searchValue, setSearchValue] = useState("");
@@ -45,7 +45,7 @@ const useScores = (numberOfRows: number) => {
     };
 
     const { data: dataScores, isLoading: isLoadingScores, error: errorScores } = useQuery(
-        ["scores", numberOfRows * (page-1), numberOfRows, searchValue, levelFilter],
+        ["scores", numberOfRowsInPage * (page-1), numberOfRowsInPage, searchValue, levelFilter],
         fetchScores,
         {
             keepPreviousData: true,
@@ -53,7 +53,7 @@ const useScores = (numberOfRows: number) => {
     );
 
     return {
-        numberOfRows: numberOfRows,
+        numberOfRowsInPage: numberOfRowsInPage,
         page: page,
         setPage: setPage,
         totalNumberOfRows: totalNumberOfRows,
