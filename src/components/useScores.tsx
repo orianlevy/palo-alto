@@ -62,7 +62,6 @@ const useScores = (numberOfRows: number) => {
         error: errorScores,
         handleSearch: handleSearch,
         handleLevelFilter: handleLevelFilter,
-        suspects: dataSuspects
     };
 };
 
