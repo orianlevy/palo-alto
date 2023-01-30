@@ -53,7 +53,6 @@ const useScores = (numberOfRowsInPage: number) => {
     );
 
     return {
-        numberOfRowsInPage: numberOfRowsInPage,
         page: page,
         setPage: setPage,
         totalNumberOfRows: totalNumberOfRows,

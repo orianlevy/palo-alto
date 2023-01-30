@@ -7,10 +7,10 @@ import useScores from "./useScores";
 import IdCellRenderer from "./IdCellRenderer";
 import ColumnFilter from "./ColumnFilter";
 
-const Scores = ({propsRows = 10}) => {
+const Scores = ({numberOfRowsInPage = 10}) => {
     const title = "Tournament 101 - Final Results";
     const gridStyle = useMemo(() => ({ height: '470px', width: '90%' }), []);
-    const { numberOfRowsInPage, totalNumberOfRows, isLoading, rowData, page, setPage, error, handleSearch, handleLevelFilter } = useScores(propsRows);
+    const { totalNumberOfRows, isLoading, rowData, page, setPage, error, handleSearch, handleLevelFilter } = useScores(numberOfRowsInPage);
     const [columnDefs] = useState([
         { field: 'id', cellRenderer: (props: any) => <IdCellRenderer id={props.data.id} />, suppressMovable:true},
         { field: 'name', cellStyle: { textTransform: 'capitalize' }, suppressMovable:true },
