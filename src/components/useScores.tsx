@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {useQuery} from "react-query";
 
 const useScores = (numberOfRowsInPage: number) => {
@@ -6,6 +6,7 @@ const useScores = (numberOfRowsInPage: number) => {
     const [totalNumberOfRows, setTotalNumberOfRows] = useState(0);
     const [searchValue, setSearchValue] = useState("");
     const [levelFilter, setLevelFilter] = useState("");
+    const [maxPages, setMaxPages] = useState(0);
 
 
     const handleSearch = (e: any) => {
@@ -51,16 +52,19 @@ const useScores = (numberOfRowsInPage: number) => {
             keepPreviousData: true,
         }
     );
+    useMemo(() => {
+        totalNumberOfRows === 0 ? setMaxPages(1) : setMaxPages(Math.floor(totalNumberOfRows / numberOfRowsInPage))
+    }, [totalNumberOfRows]);
 
     return {
         page: page,
         setPage: setPage,
-        totalNumberOfRows: totalNumberOfRows,
         rowData: dataScores,
         isLoading: isLoadingScores,
         error: errorScores,
         handleSearch: handleSearch,
         handleLevelFilter: handleLevelFilter,
+        maxPages: maxPages
     };
 };
 

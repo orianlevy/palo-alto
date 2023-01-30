@@ -10,7 +10,7 @@ import ColumnFilter from "./ColumnFilter";
 const Scores = ({numberOfRowsInPage = 10}) => {
     const title = "Tournament 101 - Final Results";
     const gridStyle = useMemo(() => ({ height: '470px', width: '90%' }), []);
-    const { totalNumberOfRows, isLoading, rowData, page, setPage, error, handleSearch, handleLevelFilter } = useScores(numberOfRowsInPage);
+    const { isLoading, rowData, page, setPage, error, handleSearch, handleLevelFilter, maxPages } = useScores(numberOfRowsInPage);
     const [columnDefs] = useState([
         { field: 'id', cellRenderer: (props: any) => <IdCellRenderer id={props.data.id} />, suppressMovable:true},
         { field: 'name', cellStyle: { textTransform: 'capitalize' }, suppressMovable:true },
@@ -49,7 +49,7 @@ const Scores = ({numberOfRowsInPage = 10}) => {
                     </button>
                     <button className="pagination-button"
                         onClick={() => setPage((currPage) => currPage + 1)}
-                        disabled={page  === (totalNumberOfRows === 0 ? 1 : Math.floor(totalNumberOfRows / numberOfRowsInPage))}
+                        disabled={page  === maxPages}
                     >
                         Next
                     </button>
