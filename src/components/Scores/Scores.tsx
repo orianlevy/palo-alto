@@ -4,8 +4,8 @@ import "./Scores.css"
 import 'ag-grid-community/styles//ag-grid.css';
 import 'ag-grid-community/styles//ag-theme-alpine.css';
 import useScores from "./useScores";
-import IdCellRenderer from "./IdCellRenderer";
-import ColumnFilter from "./ColumnFilter";
+import IdCellRenderer from "../IdCellRenderer/IdCellRenderer";
+import ColumnFilter from "../ColumnFilter/ColumnFilter";
 
 const Scores = ({numberOfRowsInPage = 10}) => {
     const title = "Tournament 101 - Final Results";

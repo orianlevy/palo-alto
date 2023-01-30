@@ -1,11 +1,12 @@
 import React, {useMemo} from 'react';
 import {useQuery} from "react-query";
-import { ReactComponent as SuspectIcon } from '../assets/suspect.svg';
-interface IProps {
+import { ReactComponent as SuspectIcon } from '../../assets/suspect.svg';
+import "./IdCellRenderer.css"
+interface IPropsIdCellRenderer {
     id: number
 }
 
-const IdCellRenderer = ({ id } : IProps) => {
+const IdCellRenderer = ({ id } : IPropsIdCellRenderer) => {
     const { data : suspectsArray } = useQuery<number[]>(
         ["suspects"],
         {
@@ -19,7 +20,7 @@ const IdCellRenderer = ({ id } : IProps) => {
 
     return (
         <div>
-            {isSuspect ? <div style={{ display: "flex", justifyContent : "center" }}>{id} <SuspectIcon style={{ margin: "4px" }}/></div> : <div>{id}</div>}
+            {isSuspect ? <div className="suspect">{id} <SuspectIcon className="suspectIcon"/></div> : <div>{id}</div>}
         </div>
     );
 };

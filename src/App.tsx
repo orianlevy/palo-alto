@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Scores from "./components/Scores";
+import Scores from "./components/Scores/Scores";
 
 function App() {
   return (

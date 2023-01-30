@@ -1,13 +1,13 @@
 import React from 'react';
-
-interface IProps {
+import "./ColumnFilter.css"
+interface IPropsColumnFilter {
     onLevelSelected: ()=>{}
 }
-const ColumnFilter = (props: IProps) => {
+const ColumnFilter = (props: IPropsColumnFilter) => {
     return (
-        <div style={{ margin: "auto" }}>
+        <div className="levelFilter">
             <span>Level </span>
-            <select onChange={props.onLevelSelected} style={{ outline: "none" }}>
+            <select className="levelFilterSelector" onChange={props.onLevelSelected}>
                 <option value=""></option>
                 <option value="rookie">Rookie</option>
                 <option value="amateur">Amateur</option>
