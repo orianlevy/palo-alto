@@ -9,18 +9,15 @@ import ColumnFilter from "../ColumnFilter/ColumnFilter";
 
 const Scores = ({numberOfRowsInPage = 10}) => {
     const title = "Tournament 101 - Final Results";
-    const gridStyle = useMemo(() => ({ height: '470px', width: '90%' }), []);
-    const { isLoading, rowData, page, setPage, error, handleSearch, handleLevelFilter, maxPages } = useScores(numberOfRowsInPage);
+    const gridStyle = useMemo(() => ({ height: '473px', width: '90%' }), []);
+    const { isLoading, rowData, page, error, handleSearch, handleLevelFilter, maxPages,
+        totalNumberOfRows, numberOfFilteredRows, handlePageChange, pageInputValue, handlePaginationButtons } = useScores(numberOfRowsInPage);
     const [columnDefs] = useState([
-        { field: 'id', cellRenderer: (props: any) => <IdCellRenderer id={props.data.id} />, suppressMovable:true},
-        { field: 'name', cellStyle: { textTransform: 'capitalize' }, suppressMovable:true },
-        { field: 'level', headerComponent: ColumnFilter, headerComponentParams: {onLevelSelected: handleLevelFilter}, suppressMovable:true},
-        { field: 'score', suppressMovable:true }
+        { field: 'id', flex: 1, cellRenderer: (props: any) => <IdCellRenderer id={props.data.id} />, suppressMovable:true},
+        { field: 'name', flex: 1, cellStyle: { textTransform: 'capitalize' }, suppressMovable:true },
+        { field: 'level', flex: 1, headerComponent: ColumnFilter, headerComponentParams: {onLevelSelected: handleLevelFilter}, suppressMovable:true},
+        { field: 'score', flex: 1, suppressMovable:true }
     ]);
-
-    const onGridSizeChanged = (params: any) => {
-        params.api.sizeColumnsToFit();
-    };
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -36,24 +33,30 @@ const Scores = ({numberOfRowsInPage = 10}) => {
             <div className='ag-theme-alpine' style={gridStyle}>
                 <input type="text" className="search" placeholder="Search..." onChange={handleSearch}/>
                 <AgGridReact
-                    onGridSizeChanged={onGridSizeChanged}
                     rowData={rowData}
                     columnDefs={columnDefs}
                 />
                 <div className="pagination-buttons">
-                    <button className="pagination-button"
-                        onClick={() => setPage((currPage) => currPage - 1)}
+                    <button className="pagination-button previous"
+                        onClick={handlePaginationButtons}
                         disabled={page === 1}
                     >
                         Previous
                     </button>
-                    <button className="pagination-button"
-                        onClick={() => setPage((currPage) => currPage + 1)}
+                    <button className="pagination-button next"
+                        onClick={handlePaginationButtons}
                         disabled={page  === maxPages}
                     >
                         Next
                     </button>
                 </div>
+                <div className="stats">
+                    <span className="filtered-rows">Filtered Scores: {numberOfFilteredRows}</span>
+                    <span className="total-rows">Total Scores: {totalNumberOfRows}</span>
+                    <span className="total-pages">Number of pages: {maxPages}</span>
+                </div>
+                <span className="set-page-text">Go to  page number: </span>
+                <input type="text" className="set-page" onChange={handlePageChange} value={pageInputValue}/>
             </div>
         </div>
     );

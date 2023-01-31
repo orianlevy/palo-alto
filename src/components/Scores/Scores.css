@@ -59,3 +59,28 @@
 .search:focus{
     border: 3px solid blue;
 }
+
+.stats {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-weight: bold;
+}
+
+.set-page {
+    width: 90px;
+    padding: 5px;
+    height: 20px;
+    border-radius: 5px 0 0 5px;
+    border: 3px solid white;
+    outline: none;
+    margin: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: blue;
+    text-align: center;
+}
+
+.set-page-text {
+    font-weight: bold;
+}
