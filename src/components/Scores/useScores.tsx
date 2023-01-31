@@ -69,7 +69,12 @@ const useScores = (numberOfRowsInPage: number) => {
         }
         else if (classValue.includes("next")) {
             setPage((currPage) => currPage + 1);
-            setPageInputValue((currPage)=>(Number(currPage)+1).toString());
+            if (pageInputValue) {
+                setPageInputValue((currPage)=>(Number(currPage)+1).toString());
+            }
+            else {
+                setPageInputValue("2");
+            }
         }
     };
 
