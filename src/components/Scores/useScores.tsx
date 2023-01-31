@@ -81,6 +81,7 @@ const useScores = (numberOfRowsInPage: number) => {
         const value = e.target.value;
 
         if (!value) {
+            setPage(1);
             setPageInputValue("");
             return;
         }
