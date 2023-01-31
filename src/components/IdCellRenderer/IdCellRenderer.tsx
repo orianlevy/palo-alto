@@ -14,7 +14,7 @@ const IdCellRenderer = ({ id } : IPropsIdCellRenderer) => {
         }
     );
 
-    let isSuspect = useMemo(() =>
+    const isSuspect = useMemo(() =>
         suspectsArray && suspectsArray.includes(id)
     , [id]);
 

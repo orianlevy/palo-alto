@@ -1,9 +1,15 @@
 import {useMemo, useState} from 'react';
 import {useQuery} from "react-query";
 
+export interface IScore {
+    name: string,
+    level: string,
+    scores: number,
+    id: number
+}
 const useScores = (numberOfRowsInPage: number) => {
     const [page, setPage] = useState(1);
-    const [pageInputValue, setPageInputValue] = useState("");
+    const [pageInputValue, setPageInputValue] = useState("1");
     const [totalNumberOfRows, setTotalNumberOfRows] = useState(0);
     const [numberOfFilteredRows, setNumberOfFilteredRows] = useState(0);
     const [searchValue, setSearchValue] = useState("");
@@ -35,7 +41,7 @@ const useScores = (numberOfRowsInPage: number) => {
         }
     );
 
-    const { data, isLoading, error } = useQuery(
+    const { data, isLoading, error } = useQuery<IScore[]>(
         ["scores", numberOfRowsInPage * (page-1), numberOfRowsInPage, searchValue, levelFilter],
         fetchScores,
         {

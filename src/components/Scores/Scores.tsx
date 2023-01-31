@@ -15,7 +15,7 @@ const Scores = ({numberOfRowsInPage = 10}) => {
     const [columnDefs] = useState([
         { field: 'id', flex: 1, cellRenderer: (props: any) => <IdCellRenderer id={props.data.id} />, suppressMovable:true},
         { field: 'name', flex: 1, cellStyle: { textTransform: 'capitalize' }, suppressMovable:true },
-        { field: 'level', flex: 1, headerComponent: ColumnFilter, headerComponentParams: {onLevelSelected: handleLevelFilter}, suppressMovable:true},
+        { field: 'level', flex: 1, headerComponent: ColumnFilter, headerComponentParams: {onLevelSelected: handleLevelFilter, indexOfColumnName: 1}, suppressMovable:true},
         { field: 'score', flex: 1, suppressMovable:true }
     ]);
 
