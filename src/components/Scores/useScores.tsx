@@ -26,7 +26,7 @@ const useScores = (numberOfRowsInPage: number) => {
         return response.json();
     };
 
-    const { data: dataSuspects } = useQuery(
+    useQuery(
         ["suspects"],
         fetchSuspects,
         {
@@ -45,7 +45,7 @@ const useScores = (numberOfRowsInPage: number) => {
         return response.json();
     };
 
-    const { data: dataScores, isLoading: isLoadingScores, error: errorScores } = useQuery(
+    const { data, isLoading, error } = useQuery(
         ["scores", numberOfRowsInPage * (page-1), numberOfRowsInPage, searchValue, levelFilter],
         fetchScores,
         {
@@ -59,9 +59,9 @@ const useScores = (numberOfRowsInPage: number) => {
     return {
         page: page,
         setPage: setPage,
-        rowData: dataScores,
-        isLoading: isLoadingScores,
-        error: errorScores,
+        rowData: data,
+        isLoading: isLoading,
+        error: error,
         handleSearch: handleSearch,
         handleLevelFilter: handleLevelFilter,
         maxPages: maxPages
