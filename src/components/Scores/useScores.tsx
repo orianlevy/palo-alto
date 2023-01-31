@@ -67,7 +67,7 @@ const useScores = (numberOfRowsInPage: number) => {
         }
     };
 
-    const setNumberOfRowsFromHeader = async (numberOfRowsOnHeader: number) => {
+    const setNumberOfRowsFromHeader = (numberOfRowsOnHeader: number) => {
         if (searchValue || levelFilter) {
             setNumberOfFilteredRows(numberOfRowsOnHeader);
         }
