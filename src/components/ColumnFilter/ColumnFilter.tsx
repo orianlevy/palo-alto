@@ -25,9 +25,7 @@ const ColumnFilter = (props: IPropsColumnFilter) => {
 
     const optionItems = useMemo( () => {
         if (data) {
-            if (columnName === "Level") {
-                return data.map(item => item.level).filter((value, index, self) => self.indexOf(value) === index);
-            }
+            return data.map(item => item[columnName.toLowerCase() as keyof IScore]).filter((value, index, self) => self.indexOf(value) === index);
         }
         return [""]
 
