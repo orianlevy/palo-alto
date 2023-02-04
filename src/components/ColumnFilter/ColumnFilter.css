@@ -1,7 +1,8 @@
-.levelFilter {
+div[class^='filter'] {
     margin: auto;
+    outline: none;
 }
 
-.levelFilterSelector {
+select[class^='filterSelector']{
     outline: none;
 }

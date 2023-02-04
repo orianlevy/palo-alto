@@ -10,12 +10,12 @@ import ColumnFilter from "../ColumnFilter/ColumnFilter";
 const Scores = ({numberOfRowsInPage = 10}) => {
     const title = "Tournament 101 - Final Results";
     const gridStyle = useMemo(() => ({ height: '473px', width: '90%' }), []);
-    const { isLoading, rowData, page, error, handleSearch, handleLevelFilter, maxPages,
+    const { isLoading, rowData, page, error, handleSearch, handleColumnFilter, maxPages,
         totalNumberOfRows, numberOfFilteredRows, handlePageChange, pageInputValue, handlePaginationButtons } = useScores(numberOfRowsInPage);
     const [columnDefs] = useState([
         { field: 'id', flex: 1, cellRenderer: (props: any) => <IdCellRenderer id={props.data.id} />, suppressMovable:true},
         { field: 'name', flex: 1, cellStyle: { textTransform: 'capitalize' }, suppressMovable:true },
-        { field: 'level', flex: 1, headerComponent: ColumnFilter, headerComponentParams: {onLevelSelected: handleLevelFilter, indexOfColumnName: 1}, suppressMovable:true},
+        { field: 'level', flex: 1, headerComponent: ColumnFilter, headerComponentParams: {onFilterSelected: handleColumnFilter, indexOfColumnName: 1}, suppressMovable:true},
         { field: 'score', flex: 1, suppressMovable:true }
     ]);
 

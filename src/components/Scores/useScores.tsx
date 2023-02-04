@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {useQuery} from "react-query";
 
 export interface IScore {
@@ -55,11 +55,17 @@ const useScores = (numberOfRowsInPage: number) => {
         setPageInputValue("1");
     };
 
-    const handleLevelFilter = (e: any) => {
-        setLevelFilter(e.target.value);
-        setPage(1);
-        setPageInputValue("1");
-    };
+    const handleColumnFilter = useCallback(
+        (e: any) => {
+            const classValue = e.target.className;
+            if (classValue === "filterSelectorLevel") {
+                setLevelFilter(e.target.value);
+                setPage(1);
+                setPageInputValue("1");
+            }
+        },
+        [],
+    );
 
     const handlePaginationButtons = (e: any) => {
         const classValue = e.target.className;
@@ -123,7 +129,7 @@ const useScores = (numberOfRowsInPage: number) => {
         isLoading: isLoading,
         error: error,
         handleSearch: handleSearch,
-        handleLevelFilter: handleLevelFilter,
+        handleColumnFilter: handleColumnFilter,
         maxPages: maxPages,
         totalNumberOfRows: totalNumberOfRows,
         numberOfFilteredRows: numberOfFilteredRows,
