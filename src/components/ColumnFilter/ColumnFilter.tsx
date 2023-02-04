@@ -8,8 +8,6 @@ interface IPropsColumnFilter {
 }
 
 const ColumnFilter = (props: IPropsColumnFilter) => {
-    let columnName = "";
-    let optionItems;
     const { data  } = useQuery<IScore[]>(
         ["scores" ,0, 10, "", ""],
         {
@@ -17,7 +15,7 @@ const ColumnFilter = (props: IPropsColumnFilter) => {
         }
     );
 
-    columnName = useMemo( () => {
+    const columnName = useMemo( () => {
         if (data) {
             return Object.keys(data[0])[props.indexOfColumnName].charAt(0).toUpperCase() + Object.keys(data[0])[props.indexOfColumnName].slice(1).toLowerCase();
         }
@@ -25,7 +23,7 @@ const ColumnFilter = (props: IPropsColumnFilter) => {
 
     }, [data]);
 
-    optionItems = useMemo( () => {
+    const optionItems = useMemo( () => {
         if (data) {
             if (columnName === "Level") {
                 return data.map(item => item.level).filter((value, index, self) => self.indexOf(value) === index);
